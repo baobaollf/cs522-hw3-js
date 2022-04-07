@@ -24,6 +24,10 @@ Rotate the device like so
 
 ![image](https://user-images.githubusercontent.com/55776365/161888693-5d6f9948-fc2d-479a-8734-ba21daf4e04b.png)
 
+# Cradit
 
+Using the `react-device-orientaion` library: 
+
+https://github.com/bsonntag/react-device-orientation 
 
 
