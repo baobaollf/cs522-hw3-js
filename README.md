@@ -30,4 +30,7 @@ Using the `react-device-orientaion` library:
 
 https://github.com/bsonntag/react-device-orientation 
 
+# Demo video
+[![Youtube link](https://img.youtube.com/vi/EorM1aZCc20/0.jpg)](https://www.youtube.com/watch?v=EorM1aZCc20)
+
 
