@@ -13,6 +13,7 @@ class Main extends Component {
             pointer: 0,
             time: new Date().getTime(),
             historyStack: [],
+            isReset: true,
         };
     }
 
@@ -50,7 +51,9 @@ class Main extends Component {
     }
 
     delete() {
-        if (this.state.inputValue.length > 0 && new Date().getTime() - this.state.time > 500) {
+        if (this.state.inputValue.length > 0
+            // && new Date().getTime() - this.state.time > 500
+            && this.state.isReset) {
 
             let step = 1;
             let index = Math.max(this.state.pointer - step, 0);
@@ -60,13 +63,16 @@ class Main extends Component {
                     inputValue: this.state.historyStack[index],
                     pointer: index,
                     time: new Date().getTime(),
+                    isReset: false,
                 }
             )
         }
     }
 
     restore() {
-        if (this.state.inputValue.length > 0 && new Date().getTime() - this.state.time > 500) {
+        if (this.state.inputValue.length > 0
+            // && new Date().getTime() - this.state.time > 500
+            && this.state.isReset) {
             let index = Math.min(this.state.pointer + 1, this.state.historyStack.length - 1);
             console.log(this.state.historyStack)
             this.setState(
@@ -74,12 +80,19 @@ class Main extends Component {
                     pointer: index,
                     inputValue: this.state.historyStack[index],
                     time: new Date().getTime(),
+                    isReset: false,
                 }
             )
         }
     }
 
-
+    reset() {
+        this.setState(
+            {
+                isReset: true,
+            }
+        )
+    }
 
     render() {
         return (
@@ -92,12 +105,13 @@ class Main extends Component {
                 <DeviceOrientation>
                     {
                         ({alpha, beta, gamma}) => {
-                            if (gamma < -45) {
+                            if (gamma < -45 && this.state.isReset === true) {
                                 this.delete();
-                            } else if (gamma > 45) {
+                            } else if (gamma > 45 && this.state.isReset === true) {
                                 this.restore();
+                            } else if (gamma > -10 && gamma < 10 && this.state.isReset === false) {
+                                this.reset();
                             }
-
                             return (
                                 <div>
                                     <ul>
@@ -111,7 +125,6 @@ class Main extends Component {
                                 </div>
                             )
                         }
-
                     }
                 </DeviceOrientation>
             </div>
